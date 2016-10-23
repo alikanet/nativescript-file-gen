@@ -33,7 +33,7 @@ export class AddFiles {
     else {
       window.showInputBox({
         prompt: 'What\'s the name of the new folder?',
-        value: 'folder'
+        value: 'new folder to create'
       }).then(
         (fileName) => {
           if (!fileName || /[~`!#$%\^&*+=\[\]\\';,/{}|\\":<>\?\s]/g.test(fileName)) {
@@ -57,7 +57,7 @@ export class AddFiles {
         fs.mkdirSync(folderName);
         deferred.resolve(folderName);
       } else {
-        deferred.reject('Folder already exists');
+        deferred.reject(`Folder ${folderName} already exists`);
       }      
     });
     return deferred.promise;
@@ -81,12 +81,16 @@ export class AddFiles {
         content: fc.templateContent(inputName)
       },
       {
-        name: path.join(folderName, `${inputName}.component.css`),
+        name: path.join(folderName, `${inputName}-common.css`),
         content: fc.cssContent(inputName)
       },
       {
-        name: path.join(folderName, `${inputName}.component.spec.ts`),
-        content: fc.specContent(inputName)
+        name: path.join(folderName, `${inputName}.component.ios.css`),
+        content: fc.iosCssContent(inputName)
+      },
+      {
+        name: path.join(folderName, `${inputName}.component.android.css`),
+        content: fc.androidCssContent(inputName)
       }
     ];
 

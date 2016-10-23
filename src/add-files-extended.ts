@@ -9,21 +9,21 @@ import * as Q from 'q';
 
 export class AddFilesExtended extends AddFiles {
 
-  // Create the new "shared" folder for model and service
-  public createFolder(folderName): Q.Promise<string> {
-    const deferred: Q.Deferred<string> = Q.defer<string>();
-    var fileExists: boolean = fs.existsSync(folderName);
+//   // Create the new "shared" folder for model and service
+//   public createFolder(folderName): Q.Promise<string> {
+//     const deferred: Q.Deferred<string> = Q.defer<string>();
+//     var fileExists: boolean = fs.existsSync(folderName);
 
-    if (!fileExists) {
-      fs.mkdir(folderName, (err) => {
-        fs.mkdirSync(path.join(folderName, 'shared'));
-        deferred.resolve(folderName);
-      });      
-    } else {
-      deferred.reject('Folder already exists');
-    }
-    return deferred.promise;
-  }
+//     if (!fileExists) {
+//       fs.mkdir(folderName, (err) => {
+//         fs.mkdirSync(path.join(folderName, 'shared'));
+//         deferred.resolve(folderName);
+//       });      
+//     } else {
+//         deferred.reject(`Folder ${folderName} already exists`);
+//     }
+//     return deferred.promise;
+//   }
 
   // Get file contents and create the new files in the folder 
   public createFiles(folderName: string): Q.Promise<string> {
@@ -43,19 +43,23 @@ export class AddFilesExtended extends AddFiles {
         content: fc.templateContent(inputName)
       },
       {
-        name: path.join(folderName, `${inputName}.component.css`),
+        name: path.join(folderName, `${inputName}-common.css`),
         content: fc.cssContent(inputName)
       },
       {
-        name: path.join(folderName, `${inputName}.component.spec.ts`),
-        content: fc.specContent(inputName)
+        name: path.join(folderName, `${inputName}.component.ios.css`),
+        content: fc.iosCssContent(inputName)
       },
       {
-        name: path.join(folderName, 'shared', `${inputName}.service.ts`),
-        content: fc.serviceContent(inputName)
+        name: path.join(folderName, `${inputName}.component.android.css`),
+        content: fc.androidCssContent(inputName)
       },
       {
-        name: path.join(folderName, 'shared', `${inputName}.model.ts`),
+        name: path.join(folderName, `${inputName}.routing.ts`),
+        content: fc.routingContent(inputName)
+      },
+      {
+        name: path.join(folderName, `${inputName}.module.ts`),
         content: fc.modelContent(inputName)
       }
     ];
