@@ -60,7 +60,7 @@ export class AddFilesExtended extends AddFiles {
       },
       {
         name: path.join(folderName, `${inputName}.module.ts`),
-        content: fc.modelContent(inputName)
+        content: fc.moduleContent(inputName)
       }
     ];
 

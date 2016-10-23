@@ -51,17 +51,17 @@ export const ${inputUpperCase}Routing: ModuleWithProviders = RouterModule.forChi
         return serviceContent;
     }
 
-    public modelContent(inputName: string): string {
+    public moduleContent(inputName: string): string {
         var inputUpperCase: string; 
         inputUpperCase = inputName.charAt(0).toUpperCase() + inputName.slice(1);
         inputUpperCase = this.camelCase(inputUpperCase);
-        var modelContent: string = 
+        var moduleContent: string = 
 `import { NativeScriptModule } from "nativescript-angular/platform";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NgModule } from "@angular/core";
 
 import { ${inputUpperCase}Routing } from "./${inputName}.routing";
-import { ${inputUpperCase} } from "./${inputName}.component";
+import { ${inputUpperCase}Component } from "./${inputName}.component";
 
 @NgModule({
   imports: [
@@ -74,7 +74,7 @@ import { ${inputUpperCase} } from "./${inputName}.component";
   ]
 })
 export class ${inputUpperCase}Module { }`;
-        return modelContent;
+        return moduleContent;
     }
 
     public templateContent(inputName: string): string {
